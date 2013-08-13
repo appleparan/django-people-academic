@@ -21,9 +21,16 @@ GENDER_CHOICES = [
 ]
 
 TITLE_CHOICES = [
+    ('Un', _('')),
+    ('Ms', _('Ms')),
     ('Dr', _('Dr')),
     ('Prof', _('Prof')),
-    ('Prof Dr', _('Prof Dr')),
+]
+
+LAB_CHOICES = [
+    ('Numerical', _('Numerical')),
+    ('CFD', _('CFD')),
+    ('Image', _('Image')),
 ]
 
 
@@ -216,6 +223,13 @@ class Person(SimpleTranslationMixin, models.Model):
         null=True, blank=True,
     )
 
+    lab_name = models.CharField(
+        max_length=50,
+        choices=LAB_CHOICES,
+        verbose_name=_('Lab Name'),
+        blank=True,
+    )
+
     picture = FilerFileField(
         verbose_name=_('Picture'),
         null=True, blank=True,
@@ -224,6 +238,12 @@ class Person(SimpleTranslationMixin, models.Model):
     phone = models.CharField(
         max_length=32,
         verbose_name=_('Phone'),
+        blank=True,
+    )
+
+    mobile = models.CharField(
+        max_length=32,
+        verbose_name=_('Mobile'),
         blank=True,
     )
 
@@ -267,11 +287,36 @@ class PersonTranslation(models.Model):
         blank=True,
     )
 
+    interests = models.TextField(
+        max_length=512,
+        verbose_name=_('Interests'),
+        blank=True,
+    )
+
     bio = models.TextField(
         max_length=4000,
         verbose_name=_('Biography'),
         blank=True,
     )
+
+    prof_activities = models.TextField(
+        max_length=512,
+        verbose_name=_('Professional Activities'),
+        blank=True,
+    )
+
+    pub = models.TextField(
+        max_length=4000,
+        verbose_name=_('Publication'),
+        blank=True,
+    )
+
+    building = models.CharField(
+        max_length=50,
+        verbose_name=_('Building'),
+        blank=True,
+    )
+
 
     # needed by simple-translation
     person = models.ForeignKey(Person)
