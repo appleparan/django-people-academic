@@ -18,9 +18,9 @@ setup(
     license='The MIT License',
     platforms=['OS Independent'],
     keywords='django, cms, plugin, people, person, profile',
-    author='Martin Brochhaus',
-    author_email='mbrochh@gmail.com',
-    url="https://github.com/bitmazk/django-people",
+    author='Liam Jongsu Kim',
+    author_email='jskim.cfd@gmail.com',
+    url="https://github.com/appleparan/django-people",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
