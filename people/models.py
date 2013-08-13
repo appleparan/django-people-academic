@@ -27,6 +27,15 @@ TITLE_CHOICES = [
     ('Prof', _('Prof')),
 ]
 
+POS_CHOICES = [
+    ('Faculty', _('Faculty')),
+    ('Visitor', _('Visitor')),
+    ('Postdoc', _('Postdoc')),
+    ('Alumni', _('Alumni')),
+    ('Graduate Stduent', _('Graduate Student')),
+    ('URP', _('URP')),
+]
+
 LAB_CHOICES = [
     ('Numerical', _('Numerical')),
     ('CFD', _('CFD')),
@@ -230,6 +239,13 @@ class Person(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
+    position = models.CharField(
+        max_length=30,
+        choices=POS_CHOICES,
+        verbose_name=_('Position'),
+        blank=False,
+    )
+
     picture = FilerFileField(
         verbose_name=_('Picture'),
         null=True, blank=True,
@@ -316,7 +332,6 @@ class PersonTranslation(models.Model):
         verbose_name=_('Building'),
         blank=True,
     )
-
 
     # needed by simple-translation
     person = models.ForeignKey(Person)
