@@ -11,7 +11,7 @@ def read(fname):
 
 
 setup(
-    name="django-people",
+    name="django-people-academic",
     version=app.__version__,
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
@@ -20,7 +20,7 @@ setup(
     keywords='django, cms, plugin, people, person, profile',
     author='Liam Jongsu Kim',
     author_email='jskim.cfd@gmail.com',
-    url="https://github.com/appleparan/django-people",
+    url="https://github.com/appleparan/django-people-academic",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
