@@ -12,11 +12,11 @@ Installation
 
 If you want to install the latest stable release from PyPi::
 
-    $ pip install django-people
+    $ pip install django-people-academic
 
 If you feel adventurous and want to install the latest commit from GitHub::
 
-    $ pip install -e git://github.com/bitmazk/django-people.git#egg=people
+    $ pip install -e git://github.com/appleparan/django-people-academic.git#egg=people_academic
 
 Add ``people`` to your ``INSTALLED_APPS``::
 
