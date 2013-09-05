@@ -10,7 +10,7 @@ from .models import PersonPluginModel
 class PersonPlugin(CMSPluginBase):
     model = PersonPluginModel
     name = _("Person Plugin for Academic person")
-    render_template = "people/person_plugin.html"
+    render_template = "people_academic/person_list.html"
 
     def render(self, context, instance, placeholder):
         context.update({
