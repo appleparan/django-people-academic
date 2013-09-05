@@ -19,6 +19,16 @@ class NationalityAdmin(TranslationAdmin):
     name.short_description = _('Name')
 
 
+class LabAdmin(TranslationAdmin):
+    """Admin for the ``Lab`` model."""
+    list_display = ['name', 'homepage', 'languages']
+
+    def name(self, obj):
+        lang = get_language()
+        return get_preferred_translation_from_lang(obj, lang).name
+    name.short_description = _('Name')
+
+
 class LinkAdmin(admin.ModelAdmin):
     """Admin for the ``Link`` model."""
     list_display = ['person', 'link_type', 'url', ]
@@ -44,8 +54,9 @@ class PersonAdmin(TranslationAdmin):
     inlines = [LinkInline, ]
     list_display = [
         'roman_first_name', 'roman_last_name', 'non_roman_first_name_link',
-        'non_roman_last_name', 'chosen_name', 'gender', 'title', 'role',
-        'phone', 'email', 'ordering', 'languages', ]
+        'non_roman_last_name', 'gender', 'title', 'role',
+        'lab_name', 'email',  'phone', 'mobile', 'homepage', 
+        'picture', 'resume', 'ordering', 'nationality', 'group', 'languages']
 
     def non_roman_first_name_link(self, obj):
         return u'<a href="{0}/">{1}</a>'.format(
@@ -64,8 +75,9 @@ class RoleAdmin(TranslationAdmin):
     name.short_description = _('Name')
 
 
-admin.site.register(models.Nationality, NationalityAdmin)
+admin.site.register(models.Person, PersonAdmin)
+admin.site.register(models.Lab, LabAdmin)
+admin.site.register(models.Role, RoleAdmin)
 admin.site.register(models.Link, LinkAdmin)
 admin.site.register(models.LinkType, LinkTypeAdmin)
-admin.site.register(models.Person, PersonAdmin)
-admin.site.register(models.Role, RoleAdmin)
+admin.site.register(models.Nationality, NationalityAdmin)

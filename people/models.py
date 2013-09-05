@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from cms.models.pluginmodel import CMSPlugin
 from django_libs.models_mixins import SimpleTranslationMixin
 from filer.fields.file import FilerFileField
+from filer.fields.image import FilerImageField
 from localized_names.templatetags.localized_names_tags import get_name
 
 from . import settings
@@ -21,25 +22,19 @@ GENDER_CHOICES = [
 ]
 
 TITLE_CHOICES = [
-    ('Un', _('')),
+    ('Un', _(' ')),
     ('Ms', _('Ms')),
     ('Dr', _('Dr')),
     ('Prof', _('Prof')),
 ]
 
-POS_CHOICES = [
+GRP_CHOICES = [
     ('Faculty', _('Faculty')),
     ('Visitor', _('Visitor')),
     ('Postdoc', _('Postdoc')),
     ('Alumni', _('Alumni')),
     ('Graduate Stduent', _('Graduate Student')),
     ('URP', _('URP')),
-]
-
-LAB_CHOICES = [
-    ('Numerical', _('Numerical')),
-    ('CFD', _('CFD')),
-    ('Image', _('Image')),
 ]
 
 
@@ -90,7 +85,7 @@ class LinkTypeTranslation(models.Model):
 
     # needed by simple-translation
     link_type = models.ForeignKey(LinkType)
-    language = models.CharField(max_length=16)
+    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
 
 
 class Nationality(SimpleTranslationMixin, models.Model):
@@ -121,7 +116,7 @@ class NationalityTranslation(models.Model):
 
     # needed by simple-translation
     nationality = models.ForeignKey(Nationality)
-    language = models.CharField(max_length=16)
+    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
 
 
 class Role(SimpleTranslationMixin, models.Model):
@@ -157,7 +152,42 @@ class RoleTranslation(models.Model):
 
     # needed by simple-translation
     role = models.ForeignKey(Role)
-    language = models.CharField(max_length=16)
+    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+
+
+class Lab(SimpleTranslationMixin, models.Model):
+    """
+    The name of Lab.
+
+    For translateable fields see the ``LabTranslation`` model.
+
+    """
+    homepage = models.CharField(
+        max_length=256,
+        verbose_name=_('Homepage'),
+        blank=True,
+    )
+
+    def __unicode__(self):
+        return self.get_translation().name
+
+
+class LabTranslation(models.Model):
+    """
+    The translateable fields of the ``Lab`` model.
+
+    :name: E.g. 'Numerical' or 'CFD'
+
+    """
+    name = models.CharField(
+        max_length=128,
+        verbose_name=_('Lab Name'),
+    )
+
+    # needed by simple-translation
+    lab_name = models.ForeignKey(Lab)
+    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+
 
 
 class Person(SimpleTranslationMixin, models.Model):
@@ -172,20 +202,23 @@ class Person(SimpleTranslationMixin, models.Model):
     :non_roman_last_name: The last name in non roman letters.
     :gender: The gender of the person.
     :title: The title of the person.
-    :chosen_name: For asian people, this is the chosen western name.
     :role: Role of the person within the organisation.
-    :picture: A picture of the person.
-    :phone: Phonenumber of the person.
+    :labname: Lab name that the person belongs
     :email: Email address of the person.
+    :phone: Phonenumber of the person.
+    :mobile: Mobile number of the person.
+    :homepage: A Homepage address of the person.
+    :picture: A picture of the person.
+    :resume: A CV(Resume) of the person.
     :ordering: Enter numbers if you want to order the list of persons on your
       site in a special way.
     :nationality: The nationality of a person.
+    :group: A category shown in homepage
 
     """
     roman_first_name = models.CharField(
         max_length=256,
         verbose_name=_('Roman first name'),
-        blank=True
     )
 
     roman_last_name = models.CharField(
@@ -220,35 +253,21 @@ class Person(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
-    chosen_name = models.CharField(
-        max_length=256,
-        verbose_name=_('Chosen name'),
-        blank=True,
-    )
-
     role = models.ForeignKey(
         Role,
         verbose_name=_('Role'),
         null=True, blank=True,
     )
 
-    lab_name = models.CharField(
-        max_length=50,
-        choices=LAB_CHOICES,
+    lab_name = models.ForeignKey(
+        Lab,
         verbose_name=_('Lab Name'),
-        blank=True,
-    )
-
-    position = models.CharField(
-        max_length=30,
-        choices=POS_CHOICES,
-        verbose_name=_('Position'),
-        blank=False,
-    )
-
-    picture = FilerFileField(
-        verbose_name=_('Picture'),
         null=True, blank=True,
+    )
+
+    email = models.EmailField(
+        verbose_name=_('Email'),
+        blank=True,
     )
 
     phone = models.CharField(
@@ -263,9 +282,22 @@ class Person(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
-    email = models.EmailField(
-        verbose_name=_('Email'),
+    homepage = models.CharField(
+        max_length=256,
+        verbose_name=_('Homepage'),
         blank=True,
+    )
+
+    picture = FilerImageField(
+        verbose_name=_('Picture'),
+        null=True, blank=True,
+        related_name='picture',
+    )
+
+    resume  = FilerFileField(
+        verbose_name=_('CV(resume)'),
+        null=True, blank=True,
+        related_name='resume',
     )
 
     ordering = models.PositiveIntegerField(
@@ -277,6 +309,13 @@ class Person(SimpleTranslationMixin, models.Model):
         Nationality,
         verbose_name=_('Nationality'),
         blank=True, null=True,
+    )
+
+    group = models.CharField(
+        max_length=30,
+        choices=GRP_CHOICES,
+        verbose_name=_('Homepage Group'),
+        blank=False,
     )
 
     class Meta:
@@ -335,7 +374,7 @@ class PersonTranslation(models.Model):
 
     # needed by simple-translation
     person = models.ForeignKey(Person)
-    language = models.CharField(max_length=16)
+    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
 
     def get_gender(self):
         """Returns either 'Mr.' or 'Ms.' depending on the gender."""
@@ -364,11 +403,6 @@ class PersonTranslation(models.Model):
     def get_non_romanized_last_name(self):
         """Returns the non roman version of the first name."""
         return self.person.non_roman_last_name
-
-    def get_nickname(self):
-        """Returns the nickname of a person in roman letters."""
-        return self.person.chosen_name
-
 
 class PersonPluginModel(CMSPlugin):
     """Model for the ``PersonPlugin`` cms plugin."""
