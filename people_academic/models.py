@@ -1,5 +1,6 @@
 """Models for the ``people`` app."""
 from django.db import models
+from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
@@ -85,7 +86,7 @@ class LinkTypeTranslation(models.Model):
 
     # needed by simple-translation
     link_type = models.ForeignKey(LinkType)
-    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
 
 class Nationality(SimpleTranslationMixin, models.Model):
@@ -116,7 +117,7 @@ class NationalityTranslation(models.Model):
 
     # needed by simple-translation
     nationality = models.ForeignKey(Nationality)
-    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
 
 class Role(SimpleTranslationMixin, models.Model):
@@ -152,7 +153,7 @@ class RoleTranslation(models.Model):
 
     # needed by simple-translation
     role = models.ForeignKey(Role)
-    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
 
 class Lab(SimpleTranslationMixin, models.Model):
@@ -186,7 +187,7 @@ class LabTranslation(models.Model):
 
     # needed by simple-translation
     lab_name = models.ForeignKey(Lab)
-    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
 
 class Group(SimpleTranslationMixin, models.Model):
@@ -214,7 +215,7 @@ class GroupTranslation(models.Model):
 
     # needed by simple-translation
     group_name = models.ForeignKey(Group)
-    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
 
 class Person(SimpleTranslationMixin, models.Model):
@@ -356,7 +357,7 @@ class Person(SimpleTranslationMixin, models.Model):
 
     def __unicode__(self):
         trans = self.get_translation()
-        return get_name(trans, 'SHORT_NAME_FORMAT')
+        return get_name(trans)
 
 
 class PersonTranslation(models.Model):
@@ -406,7 +407,7 @@ class PersonTranslation(models.Model):
 
     # needed by simple-translation
     person = models.ForeignKey(Person)
-    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
     def get_gender(self):
         """Returns either 'Mr.' or 'Ms.' depending on the gender."""
