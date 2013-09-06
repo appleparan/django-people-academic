@@ -41,5 +41,4 @@ setup(
         'django-coverage',
         'mock',
     ],
-    test_suite='people.tests.runtests.runtests',
 )
