@@ -29,6 +29,16 @@ class LabAdmin(TranslationAdmin):
     name.short_description = _('Name')
 
 
+class GroupAdmin(TranslationAdmin):
+    """Admin for the ``Group`` model."""
+    list_display = ['name', 'languages']
+
+    def name(self, obj):
+        lang = get_language()
+        return get_preferred_translation_from_lang(obj, lang).name
+    name.short_description = _('Name')
+
+
 class LinkAdmin(admin.ModelAdmin):
     """Admin for the ``Link`` model."""
     list_display = ['person', 'link_type', 'url', ]
@@ -77,6 +87,7 @@ class RoleAdmin(TranslationAdmin):
 
 admin.site.register(models.Person, PersonAdmin)
 admin.site.register(models.Lab, LabAdmin)
+admin.site.register(models.Group, GroupAdmin)
 admin.site.register(models.Role, RoleAdmin)
 admin.site.register(models.Link, LinkAdmin)
 admin.site.register(models.LinkType, LinkTypeAdmin)

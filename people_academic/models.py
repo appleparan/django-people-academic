@@ -181,13 +181,40 @@ class LabTranslation(models.Model):
     """
     name = models.CharField(
         max_length=128,
-        verbose_name=_('Lab Name'),
+        verbose_name=_('Name'),
     )
 
     # needed by simple-translation
     lab_name = models.ForeignKey(Lab)
     language = models.CharField(max_length=16, choices=settings.LANGUAGES)
 
+
+class Group(SimpleTranslationMixin, models.Model):
+    """
+    The name of Group.
+
+    For translateable fields see the ``GroupTranslation`` model.
+
+    """
+    def __unicode__(self):
+        return self.get_translation().name
+
+
+class GroupTranslation(models.Model):
+    """
+    The translateable fields of the ``Group`` model.
+
+    :name: E.g. 'Faculty' or 'Visitor'
+
+    """
+    name = models.CharField(
+        max_length=128,
+        verbose_name=_('Name'),
+    )
+
+    # needed by simple-translation
+    group_name = models.ForeignKey(Group)
+    language = models.CharField(max_length=16, choices=settings.LANGUAGES)
 
 
 class Person(SimpleTranslationMixin, models.Model):
@@ -216,6 +243,12 @@ class Person(SimpleTranslationMixin, models.Model):
     :group: A category shown in homepage
 
     """
+    group = models.ForeignKey(
+        Group,
+        verbose_name=_('Homepage Group'),
+        blank=False,
+    )
+
     roman_first_name = models.CharField(
         max_length=256,
         verbose_name=_('Roman first name'),
@@ -236,6 +269,12 @@ class Person(SimpleTranslationMixin, models.Model):
     non_roman_last_name = models.CharField(
         max_length=256,
         verbose_name=_('Non roman last name'),
+        blank=True,
+    )
+
+    chosen_name = models.CharField(
+        max_length=256,
+        verbose_name=_('Chosen name'),
         blank=True,
     )
 
@@ -309,13 +348,6 @@ class Person(SimpleTranslationMixin, models.Model):
         Nationality,
         verbose_name=_('Nationality'),
         blank=True, null=True,
-    )
-
-    group = models.CharField(
-        max_length=30,
-        choices=GRP_CHOICES,
-        verbose_name=_('Homepage Group'),
-        blank=False,
     )
 
     class Meta:
@@ -404,21 +436,26 @@ class PersonTranslation(models.Model):
         """Returns the non roman version of the first name."""
         return self.person.non_roman_last_name
 
+    def get_nickname(self):
+        """Returns the nickname of a person in roman letters."""
+        return self.person.chosen_name
+
+
 class PersonPluginModel(CMSPlugin):
     """Model for the ``PersonPlugin`` cms plugin."""
-    display_type = models.CharField(
-        max_length=256,
-        choices=settings.DISPLAY_TYPE_CHOICES,
-        verbose_name=_('Display type'),
-    )
-
     person = models.ForeignKey(
         Person,
         verbose_name=_('Person'),
     )
 
+    group = models.ForeignKey( 
+        Group,
+        verbose_name=_('Group'),
+    )
+
     def copy_relations(self, oldinstance):
         self.person = oldinstance.person
+        self.group = oldinstance.group
 
     def __unicode__(self):
         return self.person.__unicode__()

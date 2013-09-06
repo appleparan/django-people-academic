@@ -16,7 +16,7 @@ class PersonPlugin(CMSPluginBase):
         context.update({
             'plugin': instance,
             'person': instance.person,
-            'display_type': instance.display_type,
+            'group': instance.group,
         })
         return context
 
