@@ -1,5 +1,6 @@
 """Models for the ``people`` app."""
 from django.db import models
+from django.db.models.query import QuerySet
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -214,8 +215,35 @@ class GroupTranslation(models.Model):
     )
 
     # needed by simple-translation
-    group_name = models.ForeignKey(Group)
+    group = models.ForeignKey(Group)
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
+
+
+class PeopleQuerySet(QuerySet):
+    """
+        QuerySet : Filters out all people within some group
+    """
+    def get_people_list(self, group_):
+        return self.filter(group__grouptranslation__name=group_)
+
+
+class People(models.Manager):
+    """
+        Manager : Filters out all people within some group
+    """
+    def get_query_set(self):
+        return PeopleQuerySet(self.model)
+
+    def get_queryset(self):
+        return PeopleQuerySet(self.model)
+
+    def __getattr__(self, name):
+        import django
+        django_ver = django.VERSION
+        if django_ver[0] == 1 and django_ver[1] < 6:
+            return getattr(self.get_query_set(), name)
+        else:
+            return getattr(self.get_queryset(), name)
 
 
 class Person(SimpleTranslationMixin, models.Model):
@@ -246,6 +274,7 @@ class Person(SimpleTranslationMixin, models.Model):
     """
     group = models.ForeignKey(
         Group,
+        related_name='group',
         verbose_name=_('Homepage Group'),
         blank=False,
     )
@@ -322,8 +351,7 @@ class Person(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
-    homepage = models.CharField(
-        max_length=256,
+    homepage = models.URLField(
         verbose_name=_('Homepage'),
         blank=True,
     )
@@ -350,6 +378,8 @@ class Person(SimpleTranslationMixin, models.Model):
         verbose_name=_('Nationality'),
         blank=True, null=True,
     )
+
+    people = People()
 
     class Meta:
         ordering = ['ordering', ]
@@ -443,23 +473,19 @@ class PersonTranslation(models.Model):
 
 
 class PersonPluginModel(CMSPlugin):
-    """Model for the ``PersonPlugin`` cms plugin."""
-    person = models.ForeignKey(
-        Person,
-        verbose_name=_('Person'),
-    )
-
+    """ 
+        Model for the ``PersonPlugin`` cms plugin. 
+    """
     group = models.ForeignKey( 
         Group,
         verbose_name=_('Group'),
     )
 
     def copy_relations(self, oldinstance):
-        self.person = oldinstance.person
         self.group = oldinstance.group
 
     def __unicode__(self):
-        return self.person.__unicode__()
+        return self.group.__unicode__()
 
 
 class Link(models.Model):

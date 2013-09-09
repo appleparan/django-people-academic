@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from .models import PersonPluginModel
+from .models import Person, PersonPluginModel
 
 
 class PersonPlugin(CMSPluginBase):
@@ -13,10 +13,12 @@ class PersonPlugin(CMSPluginBase):
     render_template = "people_academic/person_list.html"
 
     def render(self, context, instance, placeholder):
+        people = Person.people.get_people_list(PersonPluginModel.group)
         context.update({
             'plugin': instance,
-            'person': instance.person,
-            'group': instance.group,
+            'group': PersonPluginModel.group,
+            'people': people,
+            'placeholder': placeholder,
         })
         return context
 
