@@ -1,5 +1,18 @@
 {% load simple_translation_tags %}
+{% load thumbnail %}
 
-{% with person|get_preferred_translation_from_request:request as trans %}
-{{ trans.first_name }}
+{% with group|get_preferred_translation_from_request:request as trans %}
+<h1> {{ trans.name }} </h1>
 {% endwith %}
+{% for person in people %}
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1 person">
+{% with person|get_preferred_translation_from_request:request as trans %}
+<img src="{% thumbnail person.picture 250x250 crop %}" > </img>
+<p>
+{{ trans.group }}
+{{ person.roman_first_name }}
+{{ person.non_roman_first_name }}
+</p>
+{% endwith %}
+</div>
+{% endfor %}
