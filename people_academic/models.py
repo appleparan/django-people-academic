@@ -223,11 +223,12 @@ class PeopleQuerySet(QuerySet):
     """
         QuerySet : Filters out all people within some group
     """
-    def get_people_list(self, group_):
-        return self.filter(group__grouptranslation__name=group_)
+    def get_people_list(self, grpname):
+        #grpname = grp.
+        return self.filter(group__grouptranslation__name=grpname)
 
 
-class People(models.Manager):
+class PeopleManager(models.Manager):
     """
         Manager : Filters out all people within some group
     """
@@ -379,7 +380,8 @@ class Person(SimpleTranslationMixin, models.Model):
         blank=True, null=True,
     )
 
-    people = People()
+    #people = PeopleManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['ordering', ]
@@ -479,6 +481,7 @@ class PersonPluginModel(CMSPlugin):
     group = models.ForeignKey( 
         Group,
         verbose_name=_('Group'),
+        blank=False,
     )
 
     def copy_relations(self, oldinstance):

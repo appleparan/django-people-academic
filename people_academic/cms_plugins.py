@@ -13,10 +13,12 @@ class PersonPlugin(CMSPluginBase):
     render_template = "people_academic/person_list.html"
 
     def render(self, context, instance, placeholder):
-        people = Person.people.get_people_list(PersonPluginModel.group)
+        #people = Person.people.get_people_list(PersonPluginModel.group)
+        group = instance.group
+        people = Person.objects.all().filter(group__grouptranslation__name__exact=group)
         context.update({
             'plugin': instance,
-            'group': PersonPluginModel.group,
+            'group': instance.group,
             'people': people,
             'placeholder': placeholder,
         })
