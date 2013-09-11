@@ -30,15 +30,6 @@ TITLE_CHOICES = [
     ('Prof', _('Prof')),
 ]
 
-GRP_CHOICES = [
-    ('Faculty', _('Faculty')),
-    ('Visitor', _('Visitor')),
-    ('Postdoc', _('Postdoc')),
-    ('Alumni', _('Alumni')),
-    ('Graduate Stduent', _('Graduate Student')),
-    ('URP', _('URP')),
-]
-
 
 class LinkType(SimpleTranslationMixin, models.Model):
     """
