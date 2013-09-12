@@ -58,6 +58,8 @@ class PersonAdmin(TranslationAdmin):
         'lab_name', 'email',  'phone', 'mobile', 'homepage', 
         'picture', 'resume', 'ordering', 'group', 'languages']
 
+    change_form_template = 'admin/change_form.html' 
+
     def non_roman_first_name_link(self, obj):
         return u'<a href="{0}/">{1}</a>'.format(
             obj.pk, unicode(obj.non_roman_first_name))
