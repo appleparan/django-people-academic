@@ -66,6 +66,10 @@
           {% if person.homepage %}
           <p> {{ person.homepage }} </p>
           {% endif %}
+          {% if person.building %}
+          <p> {{ person.building }} </p>
+          {% endif %}
+
           </div>
         </div>
 
@@ -104,3 +108,6 @@
 {% addtoblock "css" %}
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 {% endaddtoblock "css" %}
+{% addtoblock "js" %}
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"> </script>
+{% endaddtoblock "js" %}
