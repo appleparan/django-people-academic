@@ -56,7 +56,7 @@ class PersonAdmin(TranslationAdmin):
         'roman_first_name', 'roman_last_name', 'non_roman_first_name_link',
         'non_roman_last_name', 'gender', 'title', 'role',
         'lab_name', 'email',  'phone', 'mobile', 'homepage', 
-        'picture', 'resume', 'ordering', 'nationality', 'group', 'languages']
+        'picture', 'resume', 'ordering', 'group', 'languages']
 
     def non_roman_first_name_link(self, obj):
         return u'<a href="{0}/">{1}</a>'.format(
