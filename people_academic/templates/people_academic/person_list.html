@@ -85,7 +85,30 @@
 
         </div> <!-- /.profile-header -->
       <div class="profile-body">
-        
+        <div class="interests">
+          {% if trans.interests %}
+          <h4> Interests </h4>
+          <p> {{ trans.interests }} </p>
+          {% endif %}
+        </div>
+        <div class="bio">
+          {% if trans.bio %}
+          <h4> Biography </h4>
+          <p> {{ trans.bio }} </p>
+          {% endif %}
+        </div>
+        <div class="prof-activities">
+          {% if trans.prof_activities %}
+          <h4> Professional Activities </h4>
+          <p> {{ trans.prof_activities }} </p>
+          {% endif %}
+        </div>
+        <div class="Publication">
+          {% if trans.pub %}
+          <h4> Publication </h4>
+          <p> {{ trans.pub }} </p>
+          {% endif %}
+        </div>
       </div>
     </div> <!-- /.modal-body -->
     <div class="modal-footer">
