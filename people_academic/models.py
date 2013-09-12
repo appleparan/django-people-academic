@@ -25,9 +25,9 @@ GENDER_CHOICES = [
 
 TITLE_CHOICES = [
     ('Un', _(' ')),
-    ('Ms', _('Ms')),
-    ('Dr', _('Dr')),
-    ('Prof', _('Prof')),
+    ('Ms', _('Ms.')),
+    ('Dr', _('Dr.')),
+    ('Prof', _('Prof.')),
 ]
 
 
