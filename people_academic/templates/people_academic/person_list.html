@@ -13,7 +13,7 @@
 <a data-toggle="modal" href="#{{ person.id }}" class="card-name"> 
 {{ person.roman_first_name }} {{ person.roman_last_name }} 
 {% if person.non_roman_first_name and person.non_roman_last_name %}
-  ({{ person.non_roman_first_name }} {{ person.non_roman_last_name }}) 
+  ({{ person.non_roman_last_name }} {{ person.non_roman_first_name }}) 
 {% endif %} 
 </a>
 
@@ -23,19 +23,50 @@
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       <h4 class="modal-title">
-    {{ person.roman_first_name }} {{ person.roman_last_name }} 
-    {% if person.non_roman_first_name and person.non_roman_last_name %}
-    ({{ person.non_roman_first_name }} {{ person.non_roman_last_name }}) 
+    {% if person.title %}
+    {{ person.title }}
     {% endif %}
+    {{ person.roman_first_name }} {{ person.roman_last_name }} 
       </h4> 
     </div> <!-- /.modal-header -->
     <div class="modal-body">
       <div class="profile-header clearfix">
-        <div class="name">
-          <h1>  {{ person.roman_first_name }} {{ person.roman_last_name }}  </h1>
-          {% if person.non_roman_first_name and person.non_roman_last_name %}
-          <h3>  {{ person.non_roman_first_name }} {{ person.non_roman_last_name }}  </h3>
+        <div class="name-contacts">
+          <div class="name">
+          <h1>
+          {{ person.roman_first_name }} {{ person.roman_last_name }}  
+          {% if person.gender == "male" %}
+            <i class="icon-male"></i>
+          {% elif person.gender == "female" %}
+            <i class="icon-female"></i>
           {% endif %}
+
+          </h1>
+          {% if person.non_roman_first_name and person.non_roman_last_name %}
+          <h3>  {{ person.non_roman_last_name }} {{ person.non_roman_first_name }}  </h3>
+          {% endif %}
+          {% if person.chosen_name %}
+          <h4> "{{ person.chosen_name }}" </h4>
+          {% endif %}
+          {% if person.role %}
+          <h4> {{ person.role }} </h4>
+          {% endif %}
+
+          </div>
+          <div class="contacts">
+          {% if person.email %}
+          <p> {{ person.email }} </p>
+          {% endif %}
+          {% if person.phone %}
+          <p> {{ person.phone }} </p>
+          {% endif %}
+          {% if person.mobile %}
+          <p> {{ person.mobile }} </p>
+          {% endif %}
+          {% if person.homepage %}
+          <p> {{ person.homepage }} </p>
+          {% endif %}
+          </div>
         </div>
 
         <div class="pic-resume">
@@ -44,7 +75,7 @@
         </div>
         <div class="resume">
           {% if person.resume %}
-          <a class="btn btn-pirmary" href="{{ person.resume }}"> CV Download </a>
+          <div class="resume-link"> <a href="{{person.resume}}" ><button class="btn btn-primary btn-lg" href="{{ person.resume }}"> CV Download </button></a> </div>
           {% endif %}
         </div>
         </div>
@@ -66,4 +97,10 @@
 
 {% addtoblock "css" %}
 <link href="{% static 'people_academic/people_academic.css' %}" rel='stylesheet' type='text/css' />
+{% endaddtoblock "css" %}
+{% addtoblock "css" %}
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+{% endaddtoblock "css" %}
+{% addtoblock "css" %}
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 {% endaddtoblock "css" %}

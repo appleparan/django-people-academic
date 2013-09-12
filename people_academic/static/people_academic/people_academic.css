@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+
 .person {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -38,11 +41,37 @@
     border-bottom: 1.5em;
 }
 
-.profile-header .name {
+.profile-header .name-contacts {
+    width: 45%;
+    margin-right: 5%;
     float: left;
 }
 
+.profile-header .name {
+    margin-bottom: 2.5em;
+}
+
+.profile-header .name h4 {
+    font-weight: 300;
+}
+
+.profile-header .contacts {
+    font-weight: 300;
+    font-size: 1.5em;
+}
+
 .profile-header .pic-resume {
+    width: 50%;
     float: left;
+}
+
+.profile-header .picture{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+}
+.profile-header .resume .resume-link {
+    text-align: center;
 }
 
