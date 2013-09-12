@@ -28,6 +28,8 @@ setup(
         'South',
         'django-libs',
         'django-cms',
+        'django-wysiwyg',
+        'django-ckeditor',
         'django-filer',
         'simple-translation',
         'Pillow',
