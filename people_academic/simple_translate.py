@@ -2,8 +2,6 @@
 from simple_translation.translation_pool import translation_pool
 
 from .models import (
-    Nationality,
-    NationalityTranslation,
     Lab,
     LabTranslation,
     Group,
@@ -17,7 +15,6 @@ from .models import (
 )
 
 
-translation_pool.register_translation(Nationality, NationalityTranslation)
 translation_pool.register_translation(Lab, LabTranslation)
 translation_pool.register_translation(Group, GroupTranslation)
 translation_pool.register_translation(LinkType, LinkTypeTranslation)

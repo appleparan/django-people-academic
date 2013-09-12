@@ -81,37 +81,6 @@ class LinkTypeTranslation(models.Model):
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
 
-class Nationality(SimpleTranslationMixin, models.Model):
-    """
-    The nationality of a Person.
-
-    For translateable fields see the ``NationalityTranslation`` model.
-
-    """
-    def __unicode__(self):
-        return self.get_translation().name
-
-    class Meta:
-        verbose_name_plural = _('Nationalities')
-
-
-class NationalityTranslation(models.Model):
-    """
-    The translateable fields of the ``Nationality`` model.
-
-    :name: E.g. 'Chinese' or 'Deutsch'
-
-    """
-    name = models.CharField(
-        max_length=128,
-        verbose_name=_('Name'),
-    )
-
-    # needed by simple-translation
-    nationality = models.ForeignKey(Nationality)
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
-
 class Role(SimpleTranslationMixin, models.Model):
     """
     People can have certain roles in an organisation.
@@ -208,34 +177,6 @@ class GroupTranslation(models.Model):
     # needed by simple-translation
     group = models.ForeignKey(Group)
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
-
-class PeopleQuerySet(QuerySet):
-    """
-        QuerySet : Filters out all people within some group
-    """
-    def get_people_list(self, grpname):
-        #grpname = grp.
-        return self.filter(group__grouptranslation__name=grpname)
-
-
-class PeopleManager(models.Manager):
-    """
-        Manager : Filters out all people within some group
-    """
-    def get_query_set(self):
-        return PeopleQuerySet(self.model)
-
-    def get_queryset(self):
-        return PeopleQuerySet(self.model)
-
-    def __getattr__(self, name):
-        import django
-        django_ver = django.VERSION
-        if django_ver[0] == 1 and django_ver[1] < 6:
-            return getattr(self.get_query_set(), name)
-        else:
-            return getattr(self.get_queryset(), name)
 
 
 class Person(SimpleTranslationMixin, models.Model):
@@ -365,13 +306,6 @@ class Person(SimpleTranslationMixin, models.Model):
         null=True, blank=True,
     )
 
-    nationality = models.ForeignKey(
-        Nationality,
-        verbose_name=_('Nationality'),
-        blank=True, null=True,
-    )
-
-    #people = PeopleManager()
     objects = models.Manager()
 
     class Meta:

@@ -9,16 +9,6 @@ from simple_translation.utils import get_preferred_translation_from_lang
 from . import models
 
 
-class NationalityAdmin(TranslationAdmin):
-    """Admin for the ``Nationality`` model."""
-    list_display = ['name', 'languages']
-
-    def name(self, obj):
-        lang = get_language()
-        return get_preferred_translation_from_lang(obj, lang).name
-    name.short_description = _('Name')
-
-
 class LabAdmin(TranslationAdmin):
     """Admin for the ``Lab`` model."""
     list_display = ['name', 'homepage', 'languages']
@@ -91,4 +81,3 @@ admin.site.register(models.Group, GroupAdmin)
 admin.site.register(models.Role, RoleAdmin)
 admin.site.register(models.Link, LinkAdmin)
 admin.site.register(models.LinkType, LinkTypeAdmin)
-admin.site.register(models.Nationality, NationalityAdmin)
