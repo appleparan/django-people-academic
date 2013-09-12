@@ -326,12 +326,6 @@ class PersonTranslation(models.Model):
       ``read more`` link behind the ``short_bio``.
 
     """
-    short_bio = models.TextField(
-        max_length=512,
-        verbose_name=_('Short bio'),
-        blank=True,
-    )
-
     interests = models.TextField(
         max_length=512,
         verbose_name=_('Interests'),
