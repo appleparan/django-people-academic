@@ -15,7 +15,9 @@ class PersonPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         #people = Person.people.get_people_list(PersonPluginModel.group)
         group = instance.group
-        people = Person.objects.all().filter(group__grouptranslation__name__exact=group)
+        people = Person.objects.all() \
+            .filter(group__grouptranslation__name__exact=group) \
+            .order_by('ordering')
         context.update({
             'plugin': instance,
             'group': instance.group,
