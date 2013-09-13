@@ -321,9 +321,10 @@ class PersonTranslation(models.Model):
     """
     Translateable fields of the ``Person`` model.
 
-    :short_bio: A short description of the person.
-    :bio: A longer description of the person, could appear after a
-      ``read more`` link behind the ``short_bio``.
+    :interests: Academical interests
+    :bio: A longer description of the person,
+    :prof_activities: professional activities
+    :pub: publiation
 
     """
     interests = models.TextField(
