@@ -9,7 +9,9 @@
 {% for person in people %}
 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 person">
 {% with person|get_preferred_translation_from_request:request as trans %}
-<img src="{% thumbnail person.picture 250x250 crop %}" /> 
+
+<a data-toggle="modal" href="#{{ person.id }}"> 
+<img src="{% thumbnail person.picture 250x250 crop %}" /> </a>
 <a data-toggle="modal" href="#{{ person.id }}" class="card-name"> 
 {{ person.roman_first_name }} {{ person.roman_last_name }} 
 {% if person.non_roman_first_name and person.non_roman_last_name %}
@@ -64,7 +66,7 @@
           <p> {{ person.mobile }} </p>
           {% endif %}
           {% if person.homepage %}
-          <p> {{ person.homepage }} </p>
+          <a href="{{ person.homepage }}"><p> {{ person.homepage }} </p></a>
           {% endif %}
           {% if trans.building %}
           <p> {{ trans.building }} </p>
