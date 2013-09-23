@@ -6,7 +6,6 @@
 django==1.4.3
 django-libs
 django-cms==2.3.5
-django-filer==0.9.3
 django-wysiwyg
 django-ckeditor
 simple-translation==0.8.6

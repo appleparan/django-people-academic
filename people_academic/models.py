@@ -6,8 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
 from django_libs.models_mixins import SimpleTranslationMixin
-from filer.fields.file import FilerFileField
-from filer.fields.image import FilerImageField
+#from filer.fields.file import FilerFileField
+#from filer.fields.image import FilerImageField
 from localized_names.templatetags.localized_names_tags import get_name
 
 from . import settings
@@ -289,13 +289,13 @@ class Person(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
-    picture = FilerImageField(
+    picture = models.ImageField(
         verbose_name=_('Picture'),
         null=True, blank=True,
         related_name='picture',
     )
 
-    resume  = FilerFileField(
+    resume  = models.FileField(
         verbose_name=_('CV(resume)'),
         null=True, blank=True,
         related_name='resume',

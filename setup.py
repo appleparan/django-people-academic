@@ -30,7 +30,6 @@ setup(
         'django-cms',
         'django-wysiwyg',
         'django-ckeditor',
-        'django-filer',
         'simple-translation',
         'Pillow',
         'django-localized-names',
