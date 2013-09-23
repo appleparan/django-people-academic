@@ -1,6 +1,6 @@
 import os
 from setuptools import setup, find_packages
-import people as app
+import people_academic as app
 
 
 def read(fname):
