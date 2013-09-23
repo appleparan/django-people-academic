@@ -291,13 +291,13 @@ class Person(SimpleTranslationMixin, models.Model):
 
     picture = models.ImageField(
         verbose_name=_('Picture'),
-        upload_to='/people-academic/picture/%Y/%m/%d',
+        upload_to='people-academic/picture/%Y/%m/%d',
         null=True, blank=True,
     )
 
     resume  = models.FileField(
         verbose_name=_('CV(resume)'),
-        upload_to='/people-academic/resume/%Y/%m/%d',
+        upload_to='people-academic/resume/%Y/%m/%d',
         null=True, blank=True,
     )
 
