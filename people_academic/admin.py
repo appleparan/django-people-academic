@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Admin classes for the ``people`` app."""
 from django.contrib import admin
 from django.utils.translation import get_language

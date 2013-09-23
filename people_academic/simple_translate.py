@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Registering translated models for the ``hero_slider`` app."""
 from simple_translation.translation_pool import translation_pool
 

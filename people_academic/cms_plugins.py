@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """django-cms plugins for the ``people`` app."""
 from django.utils.translation import ugettext_lazy as _
 
