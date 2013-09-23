@@ -292,13 +292,11 @@ class Person(SimpleTranslationMixin, models.Model):
     picture = models.ImageField(
         verbose_name=_('Picture'),
         null=True, blank=True,
-        related_name='picture',
     )
 
     resume  = models.FileField(
         verbose_name=_('CV(resume)'),
         null=True, blank=True,
-        related_name='resume',
     )
 
     ordering = models.PositiveIntegerField(
