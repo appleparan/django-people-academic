@@ -1,10 +1,15 @@
+It's Expermental!!
+=================
+
+
 Django People For Academic
 =========================
-
 A simple app to show person profiles, for example for the "About us" section
 of a website.
 
 Comes with a django-cms plugin and is multilingual.
+
+
 
 
 Requirements
