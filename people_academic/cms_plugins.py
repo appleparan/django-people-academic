@@ -20,7 +20,7 @@ class PersonPlugin(CMSPluginBase):
         lang = get_language()
         group = instance.group
         people = get_translation_aware_manager(Person) \
-            .language() \
+            .language(lang) \
             .filter(group__name__exact=group) \
             .order_by('ordering')
         context.update({

@@ -1,14 +1,10 @@
-{% load simple_translation_tags %}
 {% load thumbnail %}
 {% load sekizai_tags %}
 {% load staticfiles %}
 
-{% with group|get_preferred_translation_from_request:request as trans %}
-<h1> {{ trans.name }} </h1>
-{% endwith %}
+<h1> {{ group.name }} </h1>
 {% for person in people %}
 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 person">
-{% with person|get_preferred_translation_from_request:request as trans %}
 
 <a data-toggle="modal" href="#{{ person.id }}"> 
 <img src="{% thumbnail person.picture 250x250 crop %}" /> </a>
@@ -68,8 +64,8 @@
           {% if person.homepage %}
           <a href="{{ person.homepage }}"><p> {{ person.homepage }} </p></a>
           {% endif %}
-          {% if trans.building %}
-          <p> {{ trans.building }} </p>
+          {% if person.building %}
+          <p> {{ person.building }} </p>
           {% endif %}
           </div>
         </div>
@@ -88,27 +84,27 @@
         </div> <!-- /.profile-header -->
       <div class="profile-body">
         <div class="interests">
-          {% if trans.interests %}
+          {% if person.interests %}
           <h4> Interests </h4>
-          <p> {{ trans.interests }} </p>
+          <p> {{ person.interests }} </p>
           {% endif %}
         </div>
         <div class="bio">
-          {% if trans.bio %}
+          {% if person.bio %}
           <h4> Biography </h4>
-          <p> {{ trans.bio }} </p>
+          <p> {{ person.bio }} </p>
           {% endif %}
         </div>
         <div class="prof-activities">
-          {% if trans.prof_activities %}
+          {% if person.prof_activities %}
           <h4> Professional Activities </h4>
-          <p> {{ trans.prof_activities }} </p>
+          <p> {{ person.prof_activities }} </p>
           {% endif %}
         </div>
         <div class="Publication">
-          {% if trans.pub %}
+          {% if person.pub %}
           <h4> Publication </h4>
-          <p> {{ trans.pub }} </p>
+          <p> {{ person.pub }} </p>
           {% endif %}
         </div>
       </div>
@@ -119,7 +115,6 @@
   </div> <!-- /.modal-content -->
   </div> <!-- /.modal-dialog -->
 </div> <!-- /.modal -->
-{% endwith %}
 </div>
 {% endfor %}
 

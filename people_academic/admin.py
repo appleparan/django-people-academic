@@ -47,7 +47,7 @@ class PersonAdmin(TranslatableAdmin):
         u'hvad__pub', u'hvad__building',
         ]
 
-    change_form_template = u'admin/change_form.html'
+    #change_form_template = u'admin/change_form.html'
 
     def non_roman_first_name_link(self, obj):
         return u'<a href="{0}/">{1}</a>u'.format(

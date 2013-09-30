@@ -70,7 +70,7 @@ class LinkType(TranslatableModel):
         ordering = ['ordering', ]
 
     def __unicode__(self):
-        return smart_unicode(self.safe_translation_getter('name', 'LinkType: %s' % self.pk))
+        return smart_unicode(self.lazy_translation_getter('name', 'LinkType: %s' % self.pk))
 
 
 class Role(TranslatableModel):
@@ -97,7 +97,7 @@ class Role(TranslatableModel):
     )
 
     def __unicode__(self):
-        return smart_unicode(self.safe_translation_getter('name', 'Role: %s' % self.pk))
+        return smart_unicode(self.lazy_translation_getter('name', 'Role: %s' % self.pk))
 
 
 class Lab(TranslatableModel):
@@ -121,7 +121,7 @@ class Lab(TranslatableModel):
     )
 
     def __unicode__(self):
-        return smart_unicode(self.safe_translation_getter('name', 'Lab: %s' % self.pk))
+        return smart_unicode(self.lazy_translation_getter('name', 'Lab: %s' % self.pk))
 
 
 class Group(TranslatableModel):
@@ -139,7 +139,7 @@ class Group(TranslatableModel):
     )
 
     def __unicode__(self):
-        return smart_unicode(self.safe_translation_getter('name', 'Group: %s' % self.pk))
+        return smart_unicode(self.lazy_translation_getter('name', 'Group: %s' % self.pk))
 
 
 class Person(TranslatableModel):
