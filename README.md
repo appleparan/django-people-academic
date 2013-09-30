@@ -1,4 +1,4 @@
-It's Expermental!!
+It's Experimental!!
 =================
 
 
@@ -8,8 +8,6 @@ A simple app to show person profiles, for example for the "About us" section
 of a website.
 
 Comes with a django-cms plugin and is multilingual.
-
-
 
 
 Requirements
@@ -30,7 +28,7 @@ South>=0.7.6
 Installation
 ------------
 
-If you want to install the latest stable release from PyPi::
+If you want to install the latest stable release from PyPi:: (not uploaded yet)
 
     $ pip install django-people-academic
 
