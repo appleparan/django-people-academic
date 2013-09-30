@@ -303,35 +303,35 @@ class Person(TranslatableModel):
 
     def get_gender(self):
         """Returns either 'Mr.' or 'Ms.' depending on the gender."""
-        if self.person.gender == 'male':
+        if self.gender == 'male':
             return 'Mr'
-        elif self.person.gender == 'female':
+        elif self.gender == 'female':
             return 'Ms'
         return ''
 
     def get_title(self):
         """Returns the title of the person."""
-        return self.person.title
+        return self.title
 
     def get_romanized_first_name(self):
         """Returns the first name in roman letters."""
-        return self.person.roman_first_name
+        return self.roman_first_name
 
     def get_romanized_last_name(self):
         """Returns the first name in roman letters."""
-        return self.person.roman_last_name
+        return self.roman_last_name
 
     def get_non_romanized_first_name(self):
         """Returns the non roman version of the first name."""
-        return self.person.non_roman_first_name
+        return self.non_roman_first_name
 
     def get_non_romanized_last_name(self):
         """Returns the non roman version of the first name."""
-        return self.person.non_roman_last_name
+        return self.non_roman_last_name
 
     def get_nickname(self):
         """Returns the nickname of a person in roman letters."""
-        return self.person.chosen_name
+        return self.chosen_name
 
     class Meta:
         ordering = ['ordering', ]
