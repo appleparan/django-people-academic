@@ -6,6 +6,7 @@ from django.utils.translation import get_language
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
+from hvad.utils import get_translation_aware_manager
 from .models import Person, PersonPluginModel
 
 
@@ -18,9 +19,9 @@ class PersonPlugin(CMSPluginBase):
         #people = Person.people.get_people_list(PersonPluginModel.group)
         lang = get_language()
         group = instance.group
-        people = Person.objects.all() \
-            .filter(group__grouptranslation__name__exact=group) \
-            .filter(persontranslation__language=lang) \
+        people = get_translation_aware_maanger(Person) \
+            .language() \
+            .filter(group__name__exact=group) \
             .order_by('ordering')
         context.update({
             'plugin': instance,

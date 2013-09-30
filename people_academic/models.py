@@ -6,9 +6,7 @@ from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
-from django_libs.models_mixins import SimpleTranslationMixin
-#from filer.fields.file import FilerFileField
-#from filer.fields.image import FilerImageField
+from hvad.models import TranslatableModel, TranslatedFields
 from localized_names.templatetags.localized_names_tags import get_name
 
 from . import settings
@@ -32,7 +30,7 @@ TITLE_CHOICES = [
 ]
 
 
-class LinkType(SimpleTranslationMixin, models.Model):
+class LinkType(TranslatableModel):
     """
     A link type could be ``Facebook`` or ``Twitter`` or ``Website``.
 
@@ -60,29 +58,23 @@ class LinkType(SimpleTranslationMixin, models.Model):
         null=True, blank=True,
     )
 
+    translations = TranslatedFields(
+        name = models.CharField(
+            max_length=256,
+            verbose_name=_('Name'),
+        )
+    )
+
+    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
+
     class Meta:
         ordering = ['ordering', ]
 
     def __unicode__(self):
-        return self.get_translation().name
+        return self.safe_translation_getter('name', 'LinkType: %s' % self.pk)
 
 
-class LinkTypeTranslation(models.Model):
-    """
-    Translateable fields of the ``LinkType`` model.
-
-    """
-    name = models.CharField(
-        max_length=256,
-        verbose_name=_('Name'),
-    )
-
-    # needed by simple-translation
-    link_type = models.ForeignKey(LinkType)
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
-
-class Role(SimpleTranslationMixin, models.Model):
+class Role(TranslatableModel):
     """
     People can have certain roles in an organisation.
 
@@ -91,34 +83,27 @@ class Role(SimpleTranslationMixin, models.Model):
     :name: The name of the role.
 
     """
-    def __unicode__(self):
-        return self.get_translation().name
 
+    translations = TranslatedFields(
+        name = models.CharField(
+            max_length=256,
+            verbose_name=_('Role'),
+        ),
 
-class RoleTranslation(models.Model):
-    """
-    Translateable fields of the ``Role`` model.
-
-    :name: The name of the role.
-
-    """
-    name = models.CharField(
-        max_length=256,
-        verbose_name=_('Role'),
+        role_description = models.TextField(
+            max_length=4000,
+            verbose_name=_('Role description'),
+            blank=True,
+        )
     )
 
-    role_description = models.TextField(
-        max_length=4000,
-        verbose_name=_('Role description'),
-        blank=True,
-    )
-
-    # needed by simple-translation
-    role = models.ForeignKey(Role)
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
+    def __unicode__(self):
+        return self.safe_translation_getter('name', 'Role: %s' % self.pk)
 
-class Lab(SimpleTranslationMixin, models.Model):
+
+class Lab(TranslatableModel):
     """
     The name of Lab.
 
@@ -131,56 +116,40 @@ class Lab(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
-    def __unicode__(self):
-        return self.get_translation().name
-
-
-class LabTranslation(models.Model):
-    """
-    The translateable fields of the ``Lab`` model.
-
-    :name: E.g. 'Numerical' or 'CFD'
-
-    """
-    name = models.CharField(
-        max_length=128,
-        verbose_name=_('Name'),
+    translations = TranslatedFields(
+        name = models.CharField(
+            max_length=128,
+            verbose_name=_('Name'),
+        )
     )
 
-    # needed by simple-translation
-    lab_name = models.ForeignKey(Lab)
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
+    def __unicode__(self):
+        return self.safe_translation_getter('name', 'Lab: %s' % self.pk)
 
-class Group(SimpleTranslationMixin, models.Model):
+
+class Group(TranslatableModel):
     """
     The name of Group.
 
     For translateable fields see the ``GroupTranslation`` model.
 
     """
-    def __unicode__(self):
-        return self.get_translation().name
-
-
-class GroupTranslation(models.Model):
-    """
-    The translateable fields of the ``Group`` model.
-
-    :name: E.g. 'Faculty' or 'Visitor'
-
-    """
-    name = models.CharField(
-        max_length=128,
-        verbose_name=_('Name'),
+    translations = TranslatedFields(
+        name = models.CharField(
+            max_length=128,
+            verbose_name=_('Name'),
+        )
     )
 
-    # needed by simple-translation
-    group = models.ForeignKey(Group)
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
 
+    def __unicode__(self):
+        return self.safe_translation_getter('name', 'Group: %s' % self.pk)
 
-class Person(SimpleTranslationMixin, models.Model):
+
+class Person(TranslatableModel):
     """
     A model that holds information about a person.
 
@@ -307,60 +276,38 @@ class Person(SimpleTranslationMixin, models.Model):
         null=True, blank=True,
     )
 
-    objects = models.Manager()
-
-    class Meta:
-        ordering = ['ordering', ]
-        verbose_name_plural = _('People')
-
-    def __unicode__(self):
-        trans = self.get_translation()
-        return get_name(trans)
-
-
-class PersonTranslation(models.Model):
-    """
-    Translateable fields of the ``Person`` model.
-
-    :interests: Academical interests
-    :bio: A longer description of the person,
-    :prof_activities: professional activities
-    :pub: publiation
-
-    """
-    interests = models.TextField(
-        max_length=512,
-        verbose_name=_('Interests'),
-        blank=True,
-    )
-
-    bio = models.TextField(
-        max_length=4000,
-        verbose_name=_('Biography'),
-        blank=True,
-    )
-
-    prof_activities = models.TextField(
-        max_length=512,
-        verbose_name=_('Professional Activities'),
-        blank=True,
-    )
-
-    pub = models.TextField(
-        max_length=4000,
-        verbose_name=_('Publication'),
-        blank=True,
-    )
-
-    building = models.CharField(
-        max_length=50,
-        verbose_name=_('Building'),
-        blank=True,
-    )
-
-    # needed by simple-translation
-    person = models.ForeignKey(Person)
     language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
+    translations = TranslatedFields(
+        interests = models.TextField(
+            max_length=512,
+            verbose_name=_('Interests'),
+            blank=True,
+        ),
+
+        bio = models.TextField(
+            max_length=4000,
+            verbose_name=_('Biography'),
+            blank=True,
+        ),
+
+        prof_activities = models.TextField(
+            max_length=512,
+            verbose_name=_('Professional Activities'),
+            blank=True,
+        ),
+
+        pub = models.TextField(
+            max_length=4000,
+            verbose_name=_('Publication'),
+            blank=True,
+        ),
+
+        building = models.CharField(
+            max_length=50,
+            verbose_name=_('Building'),
+            blank=True,
+        ),
+    )
 
     def get_gender(self):
         """Returns either 'Mr.' or 'Ms.' depending on the gender."""
@@ -393,6 +340,13 @@ class PersonTranslation(models.Model):
     def get_nickname(self):
         """Returns the nickname of a person in roman letters."""
         return self.person.chosen_name
+
+    class Meta:
+        ordering = ['ordering', ]
+        verbose_name_plural = _('People')
+
+    def __unicode__(self):
+        return get_name(self)
 
 
 class PersonPluginModel(CMSPlugin):

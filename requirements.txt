@@ -8,7 +8,7 @@ django-libs
 django-cms==2.3.5
 django-wysiwyg
 django-ckeditor
-simple-translation==0.8.6
+django-hvad
 Pillow==1.7.8
 South==0.7.6
 
