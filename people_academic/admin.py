@@ -17,12 +17,12 @@ class LabAdmin(TranslatableAdmin):
 
 class GroupAdmin(TranslatableAdmin):
     """Admin for the ``Group`` model."""
-    hvad__list_display = [u'hvad__name', u'language', ]
+    hvad_list_display = [u'hvad__name', u'language', ]
 
 
 class LinkAdmin(admin.ModelAdmin):
     """Admin for the ``Link`` model."""
-    hvad__list_display = [u'person', u'link_type', u'url', ]
+    hvad_list_display = [u'person', u'link_type', u'url', ]
 
 
 class LinkInline(admin.TabularInline):
@@ -32,13 +32,13 @@ class LinkInline(admin.TabularInline):
 
 class LinkTypeAdmin(TranslatableAdmin):
     """Admin for the ``LinkType`` model."""
-    hvad__list_display = [u'hvad__name', u'ordering', u'language', ]
+    hvad_list_display = [u'hvad__name', u'ordering', u'language', ]
 
 
 class PersonAdmin(TranslatableAdmin):
     """Admin for the ``Person`` model."""
     inlines = [LinkInline, ]
-    hvad__list_display = [
+    hvad_list_display = [
         u'roman_first_name', u'roman_last_name', u'non_roman_first_name_link',
         u'non_roman_last_name', u'gender', u'title', u'role',
         u'lab_name', u'email',  u'phone', u'mobile', u'homepage', 
@@ -58,7 +58,7 @@ class PersonAdmin(TranslatableAdmin):
 
 class RoleAdmin(TranslatableAdmin):
     """Admin for the ``Role`` model."""
-    hvad__list_display = [u'have__name', u'language', ]
+    hvad_list_display = [u'have__name', u'language', ]
 
 
 admin.site.register(models.Person, PersonAdmin)

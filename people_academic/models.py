@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_unicode
 
 from cms.models.pluginmodel import CMSPlugin
 from hvad.models import TranslatableModel, TranslatedFields
@@ -65,13 +66,11 @@ class LinkType(TranslatableModel):
         )
     )
 
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
     class Meta:
         ordering = ['ordering', ]
 
     def __unicode__(self):
-        return self.safe_translation_getter('name', 'LinkType: %s' % self.pk)
+        return smart_unicode(self.safe_translation_getter('name', 'LinkType: %s' % self.pk))
 
 
 class Role(TranslatableModel):
@@ -97,10 +96,8 @@ class Role(TranslatableModel):
         )
     )
 
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
     def __unicode__(self):
-        return self.safe_translation_getter('name', 'Role: %s' % self.pk)
+        return smart_unicode(self.safe_translation_getter('name', 'Role: %s' % self.pk))
 
 
 class Lab(TranslatableModel):
@@ -123,10 +120,8 @@ class Lab(TranslatableModel):
         )
     )
 
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
     def __unicode__(self):
-        return self.safe_translation_getter('name', 'Lab: %s' % self.pk)
+        return smart_unicode(self.safe_translation_getter('name', 'Lab: %s' % self.pk))
 
 
 class Group(TranslatableModel):
@@ -143,10 +138,8 @@ class Group(TranslatableModel):
         )
     )
 
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
-
     def __unicode__(self):
-        return self.safe_translation_getter('name', 'Group: %s' % self.pk)
+        return smart_unicode(self.safe_translation_getter('name', 'Group: %s' % self.pk))
 
 
 class Person(TranslatableModel):
@@ -276,7 +269,6 @@ class Person(TranslatableModel):
         null=True, blank=True,
     )
 
-    language = models.CharField(max_length=16, choices=global_settings.LANGUAGES)
     translations = TranslatedFields(
         interests = models.TextField(
             max_length=512,
@@ -346,7 +338,7 @@ class Person(TranslatableModel):
         verbose_name_plural = _('People')
 
     def __unicode__(self):
-        return get_name(self)
+        return smart_unicode(get_name(self))
 
 
 class PersonPluginModel(CMSPlugin):
