@@ -31,7 +31,9 @@
       <div class="profile-header clearfix">
         <div class="pic-resume col-xs-12 col-sm-12 col-md-5 col-lg-5">
         <div class="picture">
+          <a href="{% person.picture %}">
           <img src="{% thumbnail person.picture 190x190 crop %}" /> 
+          </a>
         </div>
         <div class="resume">
           {% if person.resume %}
