@@ -41,12 +41,6 @@
     border-bottom: 1.5em;
 }
 
-.profile-header .name-contacts {
-    width: 45%;
-    margin-right: 5%;
-    float: left;
-}
-
 .profile-header .name {
     margin-bottom: 2.5em;
 }
@@ -58,11 +52,6 @@
 .profile-header .contacts {
     font-weight: 300;
     font-size: 1.5em;
-}
-
-.profile-header .pic-resume {
-    width: 50%;
-    float: left;
 }
 
 .profile-header .picture{

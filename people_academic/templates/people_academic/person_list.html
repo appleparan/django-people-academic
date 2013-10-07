@@ -15,7 +15,7 @@
 {% endif %} 
 </a>
 
-<div class="modal fade" id="{{ person.id }}" tabindex="-1" aria-labelledby="Person" aria-hidden="true">
+<div class="modal fade col-xs-12 col-sm-12 col-md-12 col-lg-12" id="{{ person.id }}" tabindex="-1" aria-labelledby="Person" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -29,7 +29,18 @@
     </div> <!-- /.modal-header -->
     <div class="modal-body">
       <div class="profile-header clearfix">
-        <div class="name-contacts">
+        <div class="pic-resume col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="picture">
+          <img src="{% thumbnail person.picture 250x250 crop %}" /> 
+        </div>
+        <div class="resume">
+          {% if person.resume %}
+          <div class="resume-link"> <a href="{{person.resume.url}}" ><button class="btn btn-primary btn-lg"> CV Download </button></a> </div>
+          {% endif %}
+        </div>
+        </div>
+
+        <div class="name-contacts col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <div class="name">
           <h1>
           {{ person.roman_first_name }} {{ person.roman_last_name }}  
@@ -68,17 +79,6 @@
           <p> {{ person.building }} </p>
           {% endif %}
           </div>
-        </div>
-
-        <div class="pic-resume">
-        <div class="picture">
-          <img src="{% thumbnail person.picture 250x250 crop %}" /> 
-        </div>
-        <div class="resume">
-          {% if person.resume %}
-          <div class="resume-link"> <a href="{{person.resume.url}}" ><button class="btn btn-primary btn-lg"> CV Download </button></a> </div>
-          {% endif %}
-        </div>
         </div>
 
         </div> <!-- /.profile-header -->
