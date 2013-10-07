@@ -7,7 +7,7 @@
 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 person">
 
 <a data-toggle="modal" href="#{{ person.id }}"> 
-<img src="{% thumbnail person.picture 225x225 crop %}" /> </a>
+<img src="{% thumbnail person.picture 250x250 crop %}" /> </a>
 <a data-toggle="modal" href="#{{ person.id }}" class="card-name"> 
 {{ person.roman_first_name }} {{ person.roman_last_name }} 
 {% if person.non_roman_first_name and person.non_roman_last_name %}
@@ -31,7 +31,7 @@
       <div class="profile-header clearfix">
         <div class="pic-resume col-xs-12 col-sm-12 col-md-5 col-lg-5">
         <div class="picture">
-          <img src="{% thumbnail person.picture 250x250 crop %}" /> 
+          <img src="{% thumbnail person.picture 225x225 crop %}" /> 
         </div>
         <div class="resume">
           {% if person.resume %}
