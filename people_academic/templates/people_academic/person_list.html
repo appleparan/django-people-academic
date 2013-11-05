@@ -6,9 +6,9 @@
 {% for person in people %}
 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 person">
 
-<a data-toggle="modal" data-target="#{{ person.id }}"> 
+<a data-toggle="modal" href-"" data-target="#{{ person.id }}"> 
 <img src="{% thumbnail person.picture 250x250 crop %}" /> </a>
-<a data-toggle="modal" data-target="#{{ person.id }}" class="card-name"> 
+<a data-toggle="modal" href="" data-target="#{{ person.id }}" class="card-name"> 
 {{ person.roman_first_name }} {{ person.roman_last_name }} 
 {% if person.non_roman_first_name and person.non_roman_last_name %}
   ({{ person.non_roman_last_name }} {{ person.non_roman_first_name }}) 
