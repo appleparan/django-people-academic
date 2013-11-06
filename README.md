@@ -9,6 +9,8 @@ of a website.
 
 Comes with a django-cms plugin and is multilingual.
 
+Assume that you are using bootstrap (>=3.0). 
+
 
 Requirements
 ------------
