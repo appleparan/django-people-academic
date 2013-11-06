@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
 
 .person {
-    -webkit-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 
@@ -23,6 +23,10 @@
     right: 1rem;
 }
 
+.person a {
+    cursor: auto;
+}
+   
 .person img {
     display: block;
     margin-left: auto;
