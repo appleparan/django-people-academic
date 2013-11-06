@@ -6,16 +6,16 @@
 {% for person in people %}
 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 person">
 
-<a data-toggle="modal" href-"" data-target="#{{ person.id }}"> 
+<a data-toggle="modal" data-target="#{{ person.id }}"> 
 <img src="{% thumbnail person.picture 250x250 crop %}" /> </a>
-<a data-toggle="modal" href="" data-target="#{{ person.id }}" class="card-name"> 
+<a data-toggle="modal" data-target="#{{ person.id }}" class="card-name"> 
 {{ person.roman_first_name }} {{ person.roman_last_name }} 
 {% if person.non_roman_first_name and person.non_roman_last_name %}
   ({{ person.non_roman_last_name }} {{ person.non_roman_first_name }}) 
 {% endif %} 
 </a>
 
-<div class="modal fade col-xs-12 col-sm-12 col-md-12 col-lg-12" id="{{ person.id }}" tabindex="-1" aria-labelledby="Person" aria-hidden="true">
+<div class="modal fade col-xs-12 col-sm-12 col-md-12 col-lg-12" id="{{ person.id }}" aria-labelledby="{{ person.id }}" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -124,11 +124,5 @@
 <link href="{% static 'people_academic/people_academic.css' %}" rel='stylesheet' type='text/css' />
 {% endaddtoblock "css" %}
 {% addtoblock "css" %}
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-{% endaddtoblock "css" %}
-{% addtoblock "css" %}
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 {% endaddtoblock "css" %}
-{% addtoblock "js" %}
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"> </script>
-{% endaddtoblock "js" %}
