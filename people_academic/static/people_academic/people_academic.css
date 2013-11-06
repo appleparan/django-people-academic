@@ -24,7 +24,7 @@
 }
 
 .person a {
-    cursor: auto;
+    cursor: pointer;
 }
    
 .person img {
